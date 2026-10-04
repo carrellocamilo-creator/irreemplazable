@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IRREEMPLAZABLE · Formulario de ingreso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CONFIGURACIÓN: reemplaza con tu email (ver instrucciones)
+   ========================================================= */
+</style>
+<script>
+  const FORM_EMAIL = "TU_EMAIL@ejemplo.com"; // [EDITABLE]
+  const MENTOR_NAME = "Camilo Castellanos";
+</script>
+<style>
+:root{
+  --paper:#F3F4F0; --ink:#1C2320; --soft:#5B6661; --line:#D6DBD6;
+  --pine:#2E4A41; --pine-2:#E3EAE5; --alert:#9C3A2C; --card:#FFFFFF;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#151A18; --ink:#E7ECE8; --soft:#9EAAA4; --line:#2E3733;
+    --pine:#9CC3B4; --pine-2:#22302B; --alert:#E48A7A; --card:#1B211F;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151A18; --ink:#E7ECE8; --soft:#9EAAA4; --line:#2E3733;
+  --pine:#9CC3B4; --pine-2:#22302B; --alert:#E48A7A; --card:#1B211F;
+}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 24px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:10;padding-top:env(safe-area-inset-top,0px)}
+.progress span{display:block;height:3px;width:0;background:var(--pine);transition:width .3s ease}
+main{max-width:680px;margin:0 auto;padding:72px 22px 96px}
+.brand{font-family:var(--sans);font-weight:600;letter-spacing:.02em;font-size:15px;color:var(--pine);margin:0 0 56px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,7vw,58px);line-height:1.04;letter-spacing:-.015em;margin:0 0 28px}
+h1 .second{display:block;color:var(--soft)}
+.lead{font-family:var(--serif);font-size:20px;line-height:1.6;color:var(--ink);margin:0 0 14px;max-width:60ch}
+.note{color:var(--soft);font-size:15px;margin:0}
+section{margin-top:72px;padding-top:28px;border-top:1px solid var(--line)}
+.sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:6px}
+.sec-num{font-family:var(--serif);font-size:15px;color:var(--soft);min-width:22px}
+h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.2;margin:0}
+.sec-intro{color:var(--soft);margin:6px 0 30px 38px;font-size:15.5px;max-width:58ch}
+.q{margin:0 0 34px 38px}
+.q label.qt, .q .qt{display:block;font-family:var(--serif);font-size:19.5px;line-height:1.45;margin-bottom:10px}
+.q .hint{display:block;color:var(--soft);font-size:14.5px;margin:-4px 0 10px}
+.req{color:var(--pine);margin-left:2px}
+input[type=text],input[type=email],input[type=tel],input[type=number],textarea{
+  width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;transition:border-color .15s}
+textarea{min-height:96px;resize:vertical;line-height:1.5}
+input:focus,textarea:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px var(--pine-2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px 18px;margin-left:38px}
+.grid2 .q{margin:0 0 6px}
+.grid2 label{font-family:var(--sans)!important;font-size:15px!important;color:var(--soft);margin-bottom:6px!important}
+@media (max-width:560px){.grid2{grid-template-columns:1fr} .q,.sec-intro,.grid2{margin-left:0}}
+/* escalas */
+.scale{display:flex;gap:6px;flex-wrap:wrap}
+.scale input{position:absolute;opacity:0;width:1px;height:1px}
+.scale label{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:15px;font-variant-numeric:tabular-nums;transition:background .15s,color .15s,border-color .15s}
+.scale label:hover{border-color:var(--pine)}
+.scale input:checked + label{background:var(--pine);border-color:var(--pine);color:var(--paper)}
+.scale input:focus-visible + label{box-shadow:0 0 0 3px var(--pine-2)}
+.scale-ends{display:flex;justify-content:space-between;max-width:470px;color:var(--soft);font-size:13.5px;margin-top:8px}
+.scale.five + .scale-ends{max-width:234px}
+@media (max-width:420px){.scale label{width:36px;height:36px;font-size:14px}}
+/* sí / no */
+.yn{display:flex;gap:8px}
+.yn input{position:absolute;opacity:0;width:1px;height:1px}
+.yn label{padding:9px 22px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:var(--card);font-size:15px}
+.yn input:checked + label{background:var(--pine);color:var(--paper);border-color:var(--pine)}
+.yn input:focus-visible + label{box-shadow:0 0 0 3px var(--pine-2)}
+.reveal{margin-top:12px;display:none}
+.reveal.on{display:block}
+.care{margin-top:12px;padding:14px 16px;border-left:3px solid var(--pine);background:var(--pine-2);font-size:15px;border-radius:0 8px 8px 0;display:none}
+.care.on{display:block}
+/* bases */
+.terms{margin-left:38px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px 26px 8px;max-height:460px;overflow-y:auto}
+@media (max-width:560px){.terms{margin-left:0;padding:20px 18px 4px}}
+.terms h3{font-family:var(--serif);font-weight:500;font-size:19px;margin:0 0 6px}
+.terms p{margin:0 0 20px;font-size:15.5px;color:var(--ink)}
+.checks{margin:26px 0 0 38px}
+@media (max-width:560px){.checks{margin-left:0}}
+.check{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;cursor:pointer}
+.check input{margin-top:4px;width:19px;height:19px;accent-color:var(--pine);flex:none}
+.check span{font-size:16px}
+.pact{margin:28px 0 0 38px}
+.pact-intro{font-family:var(--serif);font-size:20px;margin:0 0 18px}
+.pact-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.pact h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:0 0 10px;color:var(--pine)}
+.pact ul{margin:0;padding-left:18px}
+.pact li{font-size:15.5px;margin-bottom:9px}
+@media (max-width:560px){.pact{margin-left:0}.pact-cols{grid-template-columns:1fr;gap:18px}}
+.sign{margin:34px 0 0 38px}
+.sign-intro{font-family:var(--serif);font-size:19px;margin:0 0 20px}
+.sign-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:14px}
+@media (max-width:560px){.sign-cols{grid-template-columns:1fr}}
+.sigbox{margin:0!important}
+.sigbox .qt{font-family:var(--sans)!important;font-size:15px!important;color:var(--soft);margin-bottom:6px!important}
+.sig-fixed{border:1px solid var(--line);border-radius:8px;padding:12px 14px;color:var(--soft);background:transparent;line-height:1.55}
+.sig-line{border-bottom:1px solid var(--ink);height:58px;display:flex;align-items:flex-end;margin-top:10px}
+.sig{font-family:"Caveat",cursive;font-size:34px;line-height:1.1;padding:0 4px 4px;color:var(--pine)}
+.sig-cap{margin:6px 0 0;font-size:13.5px;color:var(--soft)}
+@media (max-width:560px){.sign{margin-left:0}}
+.err{color:var(--alert);font-size:14.5px;margin-top:8px;display:none}
+.invalid .err{display:block}
+.invalid input[type=text],.invalid textarea,.invalid input[type=email],.invalid input[type=tel],.invalid input[type=number]{border-color:var(--alert)}
+.actions{margin:48px 0 0 38px}
+@media (max-width:560px){.actions{margin-left:0}}
+button{font:inherit;font-weight:600;cursor:pointer;border-radius:999px;padding:15px 30px;border:1px solid var(--pine);background:var(--pine);color:var(--paper);font-size:16.5px}
+button.ghost{background:transparent;color:var(--pine)}
+button:disabled{opacity:.55;cursor:wait}
+button:focus-visible{outline:3px solid var(--pine-2);outline-offset:2px}
+.form-msg{margin-top:16px;font-size:15.5px;color:var(--alert)}
+/* gracias */
+#thanks{display:none}
+#thanks.on{display:block}
+#thanks h1{margin-top:0}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+footer{margin-top:80px;color:var(--soft);font-size:13.5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><span id="bar"></span></div>
+<main>
+  <p class="brand">IRREEMPLAZABLE</p>
+
+  <div id="formView">
+    <h1>Lo que haces puede reemplazarse.<span class="second">Lo que eres, no.</span></h1>
+    <p class="lead">Este formulario prepara nuestra primera sesión. No hay respuestas correctas y no hace falta escribir bonito: cuanto más honesta sea tu respuesta, más vamos a aprovechar el encuentro.</p>
+    <p class="note">Te lleva unos 15 a 20 minutos. Lo que escribas es confidencial.</p>
+
+    <form id="intake" novalidate>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">1</span><h2>Tus datos</h2></div>
+        <p class="sec-intro">Para poder contactarte y preparar el proceso.</p>
+        <div class="grid2">
+          <div class="q" data-req><label class="qt" for="nombre">Nombre y apellido<span class="req">*</span></label><input id="nombre" type="text" data-label="Nombre y apellido" autocomplete="name"><p class="err">Completa tu nombre.</p></div>
+          <div class="q" data-req><label class="qt" for="email">Email<span class="req">*</span></label><input id="email" type="email" data-label="Email" autocomplete="email"><p class="err">Ingresa un email válido.</p></div>
+          <div class="q" data-req><label class="qt" for="tel">WhatsApp<span class="req">*</span></label><input id="tel" type="tel" data-label="WhatsApp" autocomplete="tel" placeholder="+54 9 11 ..."><p class="err">Ingresa un número de contacto.</p></div>
+          <div class="q"><label class="qt" for="edad">Edad</label><input id="edad" type="number" min="18" max="99" data-label="Edad"></div>
+          <div class="q"><label class="qt" for="ciudad">Ciudad y país</label><input id="ciudad" type="text" data-label="Ciudad y país"></div>
+          <div class="q"><label class="qt" for="rol">Ocupación o rol actual</label><input id="rol" type="text" data-label="Ocupación o rol"></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">2</span><h2>Dónde estás hoy</h2></div>
+        <p class="sec-intro">Lo que te trae a este momento.</p>
+        <div class="q" data-req><label class="qt" for="p1">¿Qué te hizo decir "es momento" de empezar un proceso así? ¿Pasó algo puntual?<span class="req">*</span></label><textarea id="p1" data-label="1. Qué te hizo decir 'es momento'"></textarea><p class="err">Esta respuesta es necesaria.</p></div>
+        <div class="q" data-req><label class="qt" for="p2">Si tuvieras que describir tu vida actual en una frase, ¿cuál sería?<span class="req">*</span></label><textarea id="p2" data-label="2. Tu vida actual en una frase" style="min-height:64px"></textarea><p class="err">Esta respuesta es necesaria.</p></div>
+        <div class="q"><label class="qt" for="p3">¿Qué te sale bien afuera que adentro no se siente igual?</label><textarea id="p3" data-label="3. Lo que sale bien afuera y adentro no"></textarea></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">3</span><h2>Cómo te ven y cómo te sostienes</h2></div>
+        <p class="sec-intro">Sobre el papel que cumples todos los días.</p>
+        <div class="q"><label class="qt" for="p4">¿Cómo te describiría la gente de tu trabajo en tres palabras?</label><input id="p4" type="text" data-label="4. Tres palabras de tu entorno laboral"></div>
+        <div class="q"><label class="qt" for="p5">¿Qué parte de esa descripción sientes que es actuada o que te cansa sostener?</label><textarea id="p5" data-label="5. Lo actuado o cansador de sostener"></textarea></div>
+        <div class="q"><label class="qt" for="p6">¿A qué es lo que más te cuesta decirle que no?</label><textarea id="p6" data-label="6. Lo que más te cuesta decir que no" style="min-height:64px"></textarea></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">4</span><h2>Tu cuerpo y tu energía</h2></div>
+        <p class="sec-intro">Del 1 al 10, donde 1 es muy bajo y 10 es excelente.</p>
+        <div class="q" data-req data-scale="ind_sueno"><span class="qt">Calidad de tu sueño<span class="req">*</span></span><div class="scale" data-name="ind_sueno" data-max="10" data-label="7. Calidad del sueño (1-10)"></div><div class="scale-ends"><span>Muy mala</span><span>Excelente</span></div><p class="err">Elige un valor.</p></div>
+        <div class="q" data-req data-scale="ind_energia"><span class="qt">Tu energía durante el día<span class="req">*</span></span><div class="scale" data-name="ind_energia" data-max="10" data-label="8. Energía en el día (1-10)"></div><div class="scale-ends"><span>Agotada</span><span>Plena</span></div><p class="err">Elige un valor.</p></div>
+        <div class="q"><label class="qt" for="p9">¿Hay un malestar físico o emocional que se repite? ¿Cuál?</label><span class="hint">Insomnio, ansiedad, tensión, dolores, irritabilidad, lo que sea.</span><textarea id="p9" data-label="9. Malestar que se repite" style="min-height:64px"></textarea></div>
+        <div class="q" data-scale="ind_sintoma"><span class="qt">¿Qué tan intenso es ese malestar hoy?</span><div class="scale" data-name="ind_sintoma" data-max="10" data-label="9b. Intensidad del malestar (1-10)"></div><div class="scale-ends"><span>Leve</span><span>Muy intenso</span></div></div>
+        <div class="q" data-req data-scale="ind_propia"><span class="qt">¿Cuánto sientes que vives una vida propia?<span class="req">*</span></span><div class="scale" data-name="ind_propia" data-max="10" data-label="10. Sensación de vida propia (1-10)"></div><div class="scale-ends"><span>Prestada</span><span>Totalmente mía</span></div><p class="err">Elige un valor.</p></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">5</span><h2>Tu punto de partida</h2></div>
+        <p class="sec-intro">Del 1 al 5. Responde rápido, con lo primero que aparezca. Vamos a volver a estas mismas preguntas al final del proceso.</p>
+        <div class="q" data-req data-scale="arcon_a"><span class="qt">¿Actúo desde mí o en automático?<span class="req">*</span></span><div class="scale five" data-name="arcon_a" data-max="5" data-label="11. Autenticidad (1-5)"></div><div class="scale-ends"><span>Automático</span><span>Desde mí</span></div><p class="err">Elige un valor.</p></div>
+        <div class="q" data-req data-scale="arcon_r"><span class="qt">¿Siento en el cuerpo lo que vivo?<span class="req">*</span></span><div class="scale five" data-name="arcon_r" data-max="5" data-label="12. Resonancia (1-5)"></div><div class="scale-ends"><span>Anestesia</span><span>Lo registro</span></div><p class="err">Elige un valor.</p></div>
+        <div class="q" data-req data-scale="arcon_c"><span class="qt">¿Lo que pienso, siento y hago va en la misma dirección?<span class="req">*</span></span><div class="scale five" data-name="arcon_c" data-max="5" data-label="13. Coherencia (1-5)"></div><div class="scale-ends"><span>Para lados distintos</span><span>Alineado</span></div><p class="err">Elige un valor.</p></div>
+        <div class="q" data-req data-scale="arcon_o"><span class="qt">¿Puedo observarme sin juzgarme ni justificarme?<span class="req">*</span></span><div class="scale five" data-name="arcon_o" data-max="5" data-label="14. Observación (1-5)"></div><div class="scale-ends"><span>Me juzgo</span><span>Me veo claro</span></div><p class="err">Elige un valor.</p></div>
+        <div class="q" data-req data-scale="arcon_n"><span class="qt">¿Mi historia me pasa o yo elijo cómo sigue?<span class="req">*</span></span><div class="scale five" data-name="arcon_n" data-max="5" data-label="15. Narrativa (1-5)"></div><div class="scale-ends"><span>Me pasa</span><span>La elijo</span></div><p class="err">Elige un valor.</p></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">6</span><h2>Cómo trabajas mejor</h2></div>
+        <p class="sec-intro">Para adaptar el proceso a tu forma de funcionar.</p>
+        <div class="q"><label class="qt" for="p16">¿Cómo te llevas con prácticas como la meditación o la escritura personal?</label><textarea id="p16" data-label="16. Relación con meditación / escritura" style="min-height:64px"></textarea></div>
+        <div class="q"><label class="qt" for="p17">¿Prefieres entender por qué funciona algo antes de hacerlo, o probar y después ver?</label><textarea id="p17" data-label="17. Entender primero o probar primero" style="min-height:64px"></textarea></div>
+        <div class="q"><label class="qt" for="p18">¿Qué te haría desconfiar de un proceso como este?</label><textarea id="p18" data-label="18. Qué te haría desconfiar" style="min-height:64px"></textarea></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">7</span><h2>Para cuidarte bien</h2></div>
+        <p class="sec-intro">Estas preguntas son parte del protocolo de cuidado. Responder con honestidad me permite acompañarte de forma segura.</p>
+
+        <div class="q" data-req data-yn="s_trat"><span class="qt">¿Estás en tratamiento psicológico o psiquiátrico actualmente?<span class="req">*</span></span>
+          <div class="yn" data-name="s_trat" data-label="19. Tratamiento psicológico/psiquiátrico actual"></div>
+          <div class="reveal" data-for="s_trat"><textarea id="s_trat_d" data-label="19b. Detalle del tratamiento" placeholder="¿Con quién y desde cuándo? (opcional)" style="min-height:60px"></textarea></div>
+          <p class="err">Elige una opción.</p></div>
+
+        <div class="q" data-req data-yn="s_med"><span class="qt">¿Tomas alguna medicación de forma regular?<span class="req">*</span></span>
+          <div class="yn" data-name="s_med" data-label="20. Medicación regular"></div>
+          <div class="reveal" data-for="s_med"><textarea id="s_med_d" data-label="20b. Detalle de medicación" placeholder="¿Cuál? (opcional)" style="min-height:60px"></textarea></div>
+          <p class="err">Elige una opción.</p></div>
+
+        <div class="q" data-req data-yn="s_fis"><span class="qt">¿Tienes algún síntoma físico importante que todavía no consultaste con un médico?<span class="req">*</span></span>
+          <div class="yn" data-name="s_fis" data-label="21. Síntoma físico sin consulta médica"></div>
+          <div class="reveal" data-for="s_fis"><textarea id="s_fis_d" data-label="21b. Detalle del síntoma" placeholder="¿Cuál? (opcional)" style="min-height:60px"></textarea></div>
+          <div class="care" data-care="s_fis">Te voy a pedir que lo consultes con un médico antes o durante las primeras semanas. Este proceso acompaña, pero no reemplaza esa consulta.</div>
+          <p class="err">Elige una opción.</p></div>
+
+        <div class="q" data-req data-yn="s_crisis"><span class="qt">En los últimos meses, ¿atravesaste una pérdida fuerte, una crisis o momentos en los que pensaste en hacerte daño o en no seguir?<span class="req">*</span></span>
+          <div class="yn" data-name="s_crisis" data-label="22. Pérdida, crisis o pensamientos de hacerse daño"></div>
+          <div class="reveal" data-for="s_crisis"><textarea id="s_crisis_d" data-label="22b. Lo que quieras contar" placeholder="Lo que quieras contar (opcional)" style="min-height:60px"></textarea></div>
+          <div class="care" data-care="s_crisis">Gracias por decirlo. Te voy a escribir antes de la sesión para conversarlo con calma. Si en algún momento sientes que estás en peligro, contacta ya mismo a los servicios de emergencia o a la línea de crisis de tu país, o acude a la guardia más cercana.</div>
+          <p class="err">Elige una opción.</p></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">8</span><h2>Tu testigo</h2></div>
+        <p class="sec-intro">Durante el proceso, una persona cercana va a responder cinco preguntas breves sobre cómo te ve, al inicio, a la mitad y al final. Nunca recibe información de nuestras sesiones.</p>
+        <div class="q"><label class="qt" for="p23">¿Quién podría ser? Alguien que te conozca bien, que no sea tu jefe ni alguien de quien dependas.</label><span class="hint">No hace falta que se lo pidas todavía. Si aún no lo sabes, déjalo en blanco y lo vemos juntas.</span><input id="p23" type="text" data-label="23. Posible testigo (nombre y vínculo)" placeholder="Nombre y vínculo"></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">9</span><h2>Hacia dónde</h2></div>
+        <div class="q" data-req style="margin-top:20px"><label class="qt" for="p24">Si dentro de 12 semanas esto valió la pena, ¿qué sería distinto en tu vida? Una cosa concreta.<span class="req">*</span></label><textarea id="p24" data-label="24. Qué sería distinto en 12 semanas"></textarea><p class="err">Esta respuesta es necesaria.</p></div>
+        <div class="q"><label class="qt" for="p25">¿Hay algo más que quieras que sepa antes de empezar?</label><textarea id="p25" data-label="25. Algo más que quieras que sepa" style="min-height:64px"></textarea></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><span class="sec-num">10</span><h2>Bases y acuerdo</h2></div>
+        <p class="sec-intro">Léelo con calma. Es lo que hace que este proceso sea seguro para ti y claro para los dos.</p>
+        <div class="terms" tabindex="0" aria-label="Bases y condiciones del proceso">
+          <h3>1. Qué es este proceso</h3>
+          <p>IRREEMPLAZABLE es un proceso de acompañamiento en reconstrucción de identidad, basado en coaching y herramientas de desarrollo personal. No es terapia ni un tratamiento psicológico, psiquiátrico o médico, y no los reemplaza. Es un apoyo complementario.</p>
+          <h3>2. Tratamientos en curso</h3>
+          <p>Si estoy en tratamiento psicológico, psiquiátrico o médico, lo continúo. No suspendo ni modifico medicación ni indicaciones profesionales por participar en este proceso. Cualquier cambio en un tratamiento lo decido con mi profesional de salud.</p>
+          <h3>3. Lecturas simbólicas</h3>
+          <p>Las herramientas de lectura simbólica o narrativa del síntoma (incluida la biodescodificación) se usan como recurso de reflexión personal. Nunca constituyen un diagnóstico, una explicación médica ni una indicación de tratamiento.</p>
+          <h3>4. Cuidado y derivación</h3>
+          <p>Si durante el proceso aparecen señales de riesgo para mi salud o mi seguridad, el mentor puede pausar el trabajo y sugerirme consultar con un profesional de salud. El proceso se retoma cuando cuente con ese acompañamiento.</p>
+          <h3>5. Emergencias</h3>
+          <p>El canal de contacto entre sesiones tiene un horario definido y no es un servicio de emergencias. Ante una emergencia, contacto a los servicios de emergencia o a la línea de crisis de mi país.</p>
+          <h3>6. Responsabilidad personal</h3>
+          <p>Participo de forma voluntaria. Las decisiones que tome durante y después del proceso son mías. El mentor acompaña y propone; no decide por mí.</p>
+          <h3>7. Confidencialidad</h3>
+          <p>Lo que comparto en el formulario, las sesiones y los registros es confidencial. La única excepción es un riesgo serio para mi vida o la de otras personas. La persona que elija como testigo no recibe información de las sesiones.</p>
+          <h3>8. Uso de la información</h3>
+          <p>Mis respuestas, mediciones y las notas de sesión se guardan en un registro privado al que solo accede el mentor, y se usan únicamente para acompañar mi proceso. Para preparar las sesiones y ver mi evolución, pueden analizarse con herramientas de inteligencia artificial, siempre sin mi nombre ni mis datos de contacto. Cualquier testimonio o caso se comparte solo con mi autorización expresa y de forma anónima. Puedo pedir en cualquier momento ver, corregir o eliminar mi información.</p>
+          <h3>9. Lo práctico</h3>
+          <p>Fechas, frecuencia de encuentros y demás detalles del acompañamiento los conversamos aparte. Este documento es sobre otra cosa: cómo vamos a cuidar este proceso juntos.</p>
+        </div>
+
+        <div class="pact">
+          <p class="pact-intro">Este proceso funciona cuando los dos ponemos nuestra parte.</p>
+          <div class="pact-cols">
+            <div>
+              <h3>Yo me comprometo a</h3>
+              <ul>
+                <li>Llegar a cada encuentro presente y preparado, habiendo leído lo que compartiste.</li>
+                <li>Cuidar tu historia y tu información con total confidencialidad.</li>
+                <li>Decirte la verdad aunque incomode, siempre con respeto.</li>
+                <li>Proponer, nunca imponer: ni creencias, ni técnicas, ni decisiones.</li>
+                <li>Respetar tu ritmo y tu derecho a pausar.</li>
+                <li>Decirte con honestidad si algo excede este acompañamiento, y ayudarte a encontrar el apoyo adecuado.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Tú te comprometes a</h3>
+              <ul>
+                <li>Ser honesta conmigo y contigo, incluso cuando cueste.</li>
+                <li>Avisarme si algo te desborda, en sesión o entre sesiones.</li>
+                <li>Sostener tu tratamiento de salud, si lo tienes.</li>
+                <li>Hacer las prácticas y acciones que acordemos, o decirme si no puedes.</li>
+                <li>Hacerte cargo de tus decisiones: yo acompaño, tú eliges.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="checks">
+          <div class="q" data-req data-check="c1" style="margin:0 0 4px"><label class="check"><input type="checkbox" id="c1" data-label="Acepta: no reemplaza tratamiento"><span>Entiendo que este proceso no reemplaza ningún tratamiento psicológico, psiquiátrico ni médico, y que es un apoyo complementario.<span class="req">*</span></span></label><p class="err" style="margin:-8px 0 12px 31px">Necesitamos esta confirmación para avanzar.</p></div>
+          <div class="q" data-req data-check="c2" style="margin:0 0 4px"><label class="check"><input type="checkbox" id="c2" data-label="Acepta: bases y acuerdo mutuo"><span>Leí y acepto las bases y el acuerdo de compromiso mutuo.<span class="req">*</span></span></label><p class="err" style="margin:-8px 0 12px 31px">Necesitamos esta confirmación para avanzar.</p></div>
+          <div class="q" data-req data-check="c3" style="margin:0 0 4px"><label class="check"><input type="checkbox" id="c3" data-label="Declara: respuestas verdaderas"><span>Declaro que la información que compartí, en especial la de cuidado, es verdadera.<span class="req">*</span></span></label><p class="err" style="margin:-8px 0 12px 31px">Necesitamos esta confirmación para avanzar.</p></div>
+          <div class="q" style="margin:0 0 4px"><label class="check"><input type="checkbox" id="c4" data-label="Autoriza: uso anónimo de mediciones"><span>Autorizo el uso anónimo de mis mediciones (sin nombre ni datos personales) para mostrar resultados del método. Es opcional.</span></label></div>
+        </div>
+
+        <div class="sign">
+          <p class="sign-intro">Al firmar, los dos asumimos este acuerdo.</p>
+          <div class="sign-cols">
+            <div class="q sigbox" data-req>
+              <label class="qt" for="firma">Escribe tu nombre completo<span class="req">*</span></label>
+              <input id="firma" type="text" data-label="Firma de la consultante (nombre completo)" autocomplete="name">
+              <div class="sig-line"><span class="sig" id="sigPreview" aria-hidden="true"></span></div>
+              <p class="sig-cap">Consultante</p>
+              <p class="err">Escribe tu nombre completo para firmar.</p>
+            </div>
+            <div class="sigbox">
+              <span class="qt">Acompañante</span>
+              <div class="sig-fixed" id="mentorName"></div>
+              <div class="sig-line"><span class="sig" id="mentorSig"></span></div>
+              <p class="sig-cap" id="mentorCap"></p>
+            </div>
+          </div>
+          <p class="note" id="fecha"></p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="submit" id="sendBtn">Enviar formulario</button>
+        <p class="form-msg" id="formMsg" role="alert"></p>
+      </div>
+    </form>
+  </div>
+
+  <div id="thanks" aria-live="polite">
+    <h1>Gracias.<span class="second">Ya lo recibí.</span></h1>
+    <p class="lead">Voy a leer tus respuestas antes de la sesión. Si algo necesita conversarse antes, te escribo.</p>
+    <p class="note">Puedes guardar una copia de lo que respondiste.</p>
+    <div class="btnrow">
+      <button type="button" class="ghost" id="dlBtn">Descargar mi copia</button>
+    </div>
+  </div>
+
+  <div id="fallback" style="display:none">
+    <h1>No se pudo enviar.<span class="second">Tus respuestas siguen aquí.</span></h1>
+    <p class="lead">Descarga tu copia o cópiala y envíamela por WhatsApp o email.</p>
+    <div class="btnrow">
+      <button type="button" id="dlBtn2">Descargar respuestas</button>
+      <button type="button" class="ghost" id="copyBtn">Copiar respuestas</button>
+      <button type="button" class="ghost" id="backBtn">Volver al formulario</button>
+    </div>
+    <p class="note" id="copyMsg" style="margin-top:14px"></p>
+  </div>
+
+  <footer>IRREEMPLAZABLE · Proceso de reconstrucción de identidad</footer>
+</main>
+
+<script>
+(function(){
+  // Construir escalas
+  document.querySelectorAll('.scale').forEach(function(el){
+    var name = el.dataset.name, max = +el.dataset.max;
+    el.setAttribute('role','radiogroup');
+    for (var i=1;i<=max;i++){
+      var id = name+'_'+i;
+      var inp = document.createElement('input');
+      inp.type='radio'; inp.name=name; inp.id=id; inp.value=i;
+      var lab = document.createElement('label'); lab.htmlFor=id; lab.textContent=i;
+      el.appendChild(inp); el.appendChild(lab);
+    }
+  });
+  // Construir sí / no
+  document.querySelectorAll('.yn').forEach(function(el){
+    var name = el.dataset.name;
+    el.setAttribute('role','radiogroup');
+    ['Sí','No'].forEach(function(v){
+      var id = name+'_'+(v==='Sí'?'si':'no');
+      var inp = document.createElement('input'); inp.type='radio'; inp.name=name; inp.id=id; inp.value=v;
+      var lab = document.createElement('label'); lab.htmlFor=id; lab.textContent=v;
+      el.appendChild(inp); el.appendChild(lab);
+      inp.addEventListener('change', function(){
+        var on = inp.value==='Sí';
+        var rv = document.querySelector('.reveal[data-for="'+name+'"]'); if (rv) rv.classList.toggle('on', on);
+        var cr = document.querySelector('.care[data-care="'+name+'"]'); if (cr) cr.classList.toggle('on', on);
+      });
+    });
+  });
+
+  var fecha = new Date();
+  var fechaTxt = fecha.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('fecha').textContent = 'Fecha: ' + fechaTxt;
+  document.getElementById('mentorSig').textContent = MENTOR_NAME;
+  document.getElementById('mentorCap').textContent = 'Mentor en Reconstrucción de Identidad';
+  document.getElementById('mentorName').textContent = MENTOR_NAME;
+  document.getElementById('firma').addEventListener('input', function(e){
+    document.getElementById('sigPreview').textContent = e.target.value;
+  });
+
+  var form = document.getElementById('intake');
+
+  // Progreso
+  var reqs = Array.prototype.slice.call(form.querySelectorAll('.q[data-req]'));
+  function isFilled(q){
+    if (q.dataset.scale) return !!form.querySelector('input[name="'+q.dataset.scale+'"]:checked');
+    if (q.dataset.yn) return !!form.querySelector('input[name="'+q.dataset.yn+'"]:checked');
+    if (q.dataset.check) return document.getElementById(q.dataset.check).checked;
+    var f = q.querySelector('input,textarea');
+    if (!f) return true;
+    if (f.type==='email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value.trim());
+    return f.value.trim().length>0;
+  }
+  function updateBar(){
+    var n = reqs.filter(isFilled).length;
+    document.getElementById('bar').style.width = (n/reqs.length*100)+'%';
+  }
+  form.addEventListener('input', function(e){
+    updateBar();
+    var q = e.target.closest('.q'); if (q && q.classList.contains('invalid') && isFilled(q)) q.classList.remove('invalid');
+  });
+  form.addEventListener('change', function(e){
+    updateBar();
+    var q = e.target.closest('.q'); if (q && q.classList.contains('invalid') && isFilled(q)) q.classList.remove('invalid');
+  });
+
+  // Recolectar respuestas
+  function collect(){
+    var out = {};
+    var nodes = form.querySelectorAll('[data-label]');
+    nodes.forEach(function(n){
+      var label = n.dataset.label, val='';
+      if (n.classList.contains('scale') || n.classList.contains('yn')){
+        var c = form.querySelector('input[name="'+n.dataset.name+'"]:checked'); val = c ? c.value : '';
+      } else if (n.type==='checkbox'){
+        val = n.checked ? 'Sí' : 'No';
+      } else {
+        val = n.value.trim();
+      }
+      out[label] = val || '—';
+    });
+    out['Firma del mentor'] = MENTOR_NAME + ' · Mentor en Reconstrucción de Identidad';
+    out['Fecha de firma'] = fechaTxt;
+    return out;
+  }
+  function asText(data){
+    var lines = ['IRREEMPLAZABLE · Formulario de ingreso',''];
+    Object.keys(data).forEach(function(k){ lines.push(k+':'); lines.push(data[k]); lines.push(''); });
+    return lines.join('\n');
+  }
+  function download(data){
+    var blob = new Blob([asText(data)],{type:'text/plain;charset=utf-8'});
+    var a = document.createElement('a');
+    var nombre = (data['Nombre y apellido']||'respuestas').replace(/[^\wÁÉÍÓÚáéíóúñÑ ]/g,'').trim().replace(/\s+/g,'-');
+    a.href = URL.createObjectURL(blob); a.download = 'ingreso-irreemplazable-'+nombre+'.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  var lastData = null;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var firstBad = null;
+    reqs.forEach(function(q){
+      var ok = isFilled(q);
+      q.classList.toggle('invalid', !ok);
+      if (!ok && !firstBad) firstBad = q;
+    });
+    var msg = document.getElementById('formMsg');
+    if (firstBad){
+      msg.textContent = 'Faltan algunas respuestas obligatorias. Te llevo a la primera.';
+      firstBad.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth', block:'center'});
+      var f = firstBad.querySelector('input,textarea'); if (f) setTimeout(function(){ f.focus({preventScroll:true}); }, 300);
+      return;
+    }
+    msg.textContent = '';
+    var data = collect(); lastData = data;
+    var btn = document.getElementById('sendBtn'); btn.disabled = true; btn.textContent = 'Enviando…';
+
+    var payload = Object.assign({
+      _subject: 'Nuevo ingreso IRREEMPLAZABLE: ' + data['Nombre y apellido'] + (data['22. Pérdida, crisis o pensamientos de hacerse daño']==='Sí' ? ' · REVISAR CUIDADO' : ''),
+      _template: 'table',
+      _captcha: 'false',
+      _replyto: data['Email']
+    }, data);
+
+    if (FORM_EMAIL.indexOf('ejemplo.com') !== -1){ showFallback(); return; }
+
+    fetch('https://formsubmit.co/ajax/' + encodeURIComponent(FORM_EMAIL), {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify(payload)
+    }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if (res.ok && (res.j.success===true || res.j.success==='true')) showThanks();
+        else showFallback();
+      }).catch(showFallback);
+  });
+
+  function showThanks(){
+    document.getElementById('formView').style.display='none';
+    document.getElementById('thanks').classList.add('on');
+    document.getElementById('bar').style.width='100%';
+    window.scrollTo(0,0);
+  }
+  function showFallback(){
+    var btn = document.getElementById('sendBtn'); btn.disabled=false; btn.textContent='Enviar formulario';
+    document.getElementById('formView').style.display='none';
+    document.getElementById('fallback').style.display='block';
+    window.scrollTo(0,0);
+  }
+  document.getElementById('dlBtn').addEventListener('click', function(){ if (lastData) download(lastData); });
+  document.getElementById('dlBtn2').addEventListener('click', function(){ if (lastData) download(lastData); });
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    if (!lastData) return;
+    var t = asText(lastData), m = document.getElementById('copyMsg');
+    if (navigator.clipboard){ navigator.clipboard.writeText(t).then(function(){ m.textContent='Copiado. Pégalo en un mensaje para ' + MENTOR_NAME + '.'; }, function(){ m.textContent='No se pudo copiar. Usa "Descargar respuestas".'; }); }
+    else m.textContent='No se pudo copiar. Usa "Descargar respuestas".';
+  });
+  document.getElementById('backBtn').addEventListener('click', function(){
+    document.getElementById('fallback').style.display='none';
+    document.getElementById('formView').style.display='block';
+  });
+  updateBar();
+})();
+</script>
+</body>
+</html>

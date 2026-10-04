@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel · IRREEMPLAZABLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/panel.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side"></aside>
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>Panel</h1>
+        <p class="muted" id="today"></p>
+      </div>
+      <button class="btn primary" id="newBtn" type="button"></button>
+    </div>
+    <div id="content"><p class="loading">Cargando…</p></div>
+  </main>
+</div>
+
+<dialog id="newDlg" aria-labelledby="newTitle">
+  <form class="dlg" id="newForm" method="dialog" novalidate>
+    <h2 id="newTitle">Nueva consultante</h2>
+    <div id="newStep1">
+      <p class="muted" style="margin:-8px 0 20px">Se crea la ficha y un link único de ingreso para enviarle.</p>
+      <div class="field"><label for="n_nombre">Nombre</label><input id="n_nombre" name="nombre" type="text" autocomplete="off" required></div>
+      <div class="field"><label for="n_wa">WhatsApp</label><input id="n_wa" name="whatsapp" type="tel" placeholder="+54 9 11 ..." autocomplete="off"></div>
+      <p class="err-msg" id="newErr"></p>
+      <div class="dlg-actions">
+        <button class="btn" type="button" data-close>Cancelar</button>
+        <button class="btn primary" type="submit" id="newSubmit">Crear y generar link</button>
+      </div>
+    </div>
+    <div id="newStep2" class="hidden">
+      <p class="voice" style="margin:0 0 16px">Este es su link de ingreso. Solo sirve para enviar el formulario una vez.</p>
+      <div class="linkbox"><input type="text" id="newLink" readonly></div>
+      <div class="dlg-actions">
+        <a class="btn" id="newFicha" href="#">Ir a la ficha</a>
+        <a class="btn" id="newWa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <button class="btn primary" type="button" id="newCopy">Copiar link</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>
