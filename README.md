@@ -17,7 +17,9 @@ App privada para acompañar consultantes del método IRREEMPLAZABLE. Funciona so
 ## Puesta en marcha (una sola vez)
 
 ### 1. GitHub
-1. Abre el Pull Request de la rama `claude/lucid-goodall-nh3cw4` y aprieta **Merge pull request** → **Confirm merge**. Eso crea la rama `main`.
+1. Crea la rama `main` a partir del trabajo de la Etapa 1: en el repo → **Branches** (o el selector de ramas) → **New branch** → nombre `main`, origen `claude/lucid-goodall-nh3cw4` → **Create branch**.
+2. Repo → **Settings** → **General** → **Default branch** → elige `main`.
+3. De ahí en adelante, cada etapa llega como Pull Request hacia `main`. Al hacer **Merge**, Cloudflare publica solo.
 
 ### 2. Base de datos (D1)
 1. Entra a [dash.cloudflare.com](https://dash.cloudflare.com) → menú izquierdo **Storage & Databases** → **D1 SQL Database** → **Create**.
