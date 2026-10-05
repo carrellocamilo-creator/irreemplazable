@@ -1,4 +1,4 @@
-// Aviso por email al mentor (Resend).
+// Aviso por email al mentor. Usa EmailJS si está configurado; si no, Resend.
 // Por privacidad, el email nunca incluye respuestas: solo avisa y lleva a la ficha,
 // que está protegida por Cloudflare Access.
 
@@ -7,8 +7,8 @@ function esc(s) {
 }
 
 export async function notifyMentor(env, { subject, lines, link, care }) {
-  if (!env.RESEND_API_KEY || !env.MENTOR_EMAIL) {
-    console.warn('Aviso por email sin configurar (RESEND_API_KEY o MENTOR_EMAIL).');
+  if (!env.MENTOR_EMAIL || !(env.EMAILJS_SERVICE_ID || env.RESEND_API_KEY)) {
+    console.warn('Aviso por email sin configurar (EmailJS o Resend, y MENTOR_EMAIL).');
     return false;
   }
   const careBlock = care
@@ -22,6 +22,8 @@ export async function notifyMentor(env, { subject, lines, link, care }) {
       ${link ? `<p style="margin:24px 0 0"><a href="${esc(link)}" style="color:#2E4A41">Abrir la ficha</a></p>` : ''}
     </div>`;
   const text = [care, ...lines, link ? `Abrir la ficha: ${link}` : ''].filter(Boolean).join('\n\n');
+
+  if (env.EMAILJS_SERVICE_ID) return sendEmailJS(env, { subject, text, link, care });
 
   try {
     const res = await fetch('https://api.resend.com/emails', {
@@ -39,6 +41,34 @@ export async function notifyMentor(env, { subject, lines, link, care }) {
     return res.ok;
   } catch (e) {
     console.error('Error enviando email', e);
+    return false;
+  }
+}
+
+// EmailJS: la plantilla usa {{to_email}}, {{subject}}, {{message}}, {{care}} y {{link}}.
+async function sendEmailJS(env, { subject, text, link, care }) {
+  try {
+    const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id: env.EMAILJS_SERVICE_ID,
+        template_id: env.EMAILJS_TEMPLATE_ID,
+        user_id: env.EMAILJS_PUBLIC_KEY,
+        accessToken: env.EMAILJS_PRIVATE_KEY,
+        template_params: {
+          to_email: env.MENTOR_EMAIL,
+          subject,
+          message: text,
+          care: care || '',
+          link: link || '',
+        },
+      }),
+    });
+    if (!res.ok) console.error('EmailJS respondió', res.status, await res.text());
+    return res.ok;
+  } catch (e) {
+    console.error('Error enviando email (EmailJS)', e);
     return false;
   }
 }

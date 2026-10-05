@@ -53,19 +53,29 @@ App privada para acompañar consultantes del método IRREEMPLAZABLE. Funciona so
 7. Abre la aplicación recién creada y copia el **Application Audience (AUD) Tag**.
 8. En **Settings** (de Zero Trust) → **Custom pages** o **General**, copia tu **Team domain** (termina en `.cloudflareaccess.com`).
 
-### 6. Email de aviso (Resend)
-1. Crea una cuenta gratis en [resend.com](https://resend.com) **con el email `cami.castellanos85@gmail.com`** (sin dominio propio, Resend solo envía al email de la cuenta, que es justo lo que necesitamos).
-2. **API Keys** → **Create API Key** → permiso *Sending access* → copia la clave (empieza con `re_`).
+### 6. Email de aviso (EmailJS)
+1. En [emailjs.com](https://www.emailjs.com) → **Email Services**: debe haber un servicio conectado (por ejemplo Gmail). Copia su **Service ID**.
+2. **Email Templates** → **Create New Template**:
+   - **To Email:** `{{to_email}}`
+   - **Subject:** `{{subject}}`
+   - **Content:** `{{message}}`
+   - Guarda y copia el **Template ID**.
+3. **Account** → **General**: copia la **Public Key**. **Account** → **Security**: copia la **Private Key** y activa **"Allow EmailJS API for non-browser applications"**.
+
+(También funciona con Resend: basta con cargar `RESEND_API_KEY` en lugar de las variables de EmailJS.)
 
 ### 7. Variables del proyecto
-En el proyecto de Pages → **Settings** → **Variables and Secrets** → **Add** (entorno **Production**):
+En el proyecto de Pages → **Settings** → **Variables and Secrets** → **Add**:
 
 | Nombre | Tipo | Valor |
 | --- | --- | --- |
 | `MENTOR_EMAIL` | Text | `cami.castellanos85@gmail.com` |
-| `ACCESS_TEAM_DOMAIN` | Text | tu team domain, ej. `irreemplazable.cloudflareaccess.com` |
-| `ACCESS_AUD` | Text | el AUD Tag del paso 5.7 |
-| `RESEND_API_KEY` | **Secret** | la clave de Resend |
+| `ACCESS_TEAM_DOMAIN` | Text | tu team domain, ej. `rapid-glitter-63be.cloudflareaccess.com` |
+| `ACCESS_AUD` | Text | el AUD Tag de la aplicación de Access |
+| `EMAILJS_SERVICE_ID` | Text | Service ID |
+| `EMAILJS_TEMPLATE_ID` | Text | Template ID |
+| `EMAILJS_PUBLIC_KEY` | Text | Public Key |
+| `EMAILJS_PRIVATE_KEY` | **Secret** | Private Key |
 
 Después: **Deployments** → en el último, menú **⋯** → **Retry deployment** (para que tome las variables).
 
