@@ -86,6 +86,27 @@ Después: **Deployments** → en el último, menú **⋯** → **Retry deploymen
 4. Revisa que llegue el email y que la ficha muestre ARCON e indicadores.
 5. Elimina la consultante de prueba desde su ficha (**Datos y privacidad** → **Eliminar**).
 
+## Actualizaciones de la base (migraciones)
+
+Cuando una mejora necesita tablas nuevas, viene un archivo en `migrations/`. Se ejecuta **una vez** en la base que ya está funcionando:
+
+1. Abre el archivo en GitHub (por ejemplo `migrations/0002_kits.sql`) → **Copy raw file**.
+2. Cloudflare → **Storage & databases** → **D1** → `irreemplazable-db` → **Console** → pega → **Execute**.
+3. Debe decir *This query successfully executed*. Volver a ejecutarlo no rompe nada.
+
+| Migración | Qué agrega |
+| --- | --- |
+| `0002_kits.sql` | Kits de fase: respuestas con primera versión y corregida, días guardados, testigo propuesto, acto de identidad en borrador y momentos `kit_f1…kit_f6` en ARCON. |
+
+## Kits de fase (trabajo entre sesiones)
+
+1. En la ficha de la consultante → tarjeta **Formularios** → **Generar link del kit**.
+2. Elige el kit, la fecha y hora límite (en la hora de ella) y su zona horaria. Revisa los textos personalizables (vienen precargados).
+3. **Generar y copiar link**. Después lo puedes volver a copiar o mandar por WhatsApp desde la misma tarjeta.
+4. Ella lo completa en varios días con **Guardar este día** y lo entrega al final. Lo ves en la línea de tiempo y en **Kit · …** (respuestas, con la primera y la corregida lado a lado cuando cambió algo).
+
+Para sumar el kit de otra fase: crear su archivo en `src/kits/` con la misma estructura y registrarlo en `src/kits/index.js`.
+
 ## Cómo funciona
 
 - **Panel** (`/panel/`): alertas de cuidado arriba, consultantes en proceso con fase y día del ciclo de 14 días, próximas sesiones, formularios pendientes.

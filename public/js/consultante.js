@@ -234,7 +234,7 @@ function renderCare(c) {
 
 function renderArcon() {
   const used = new Set(rec.arcon.map((a) => a.momento));
-  const moments = MOMENTOS.filter((m) => !m.sosten || used.has(m.key));
+  const moments = MOMENTOS.filter((m) => !(m.sosten || m.kit) || used.has(m.key));
   const byWho = (q) => Object.fromEntries(rec.arcon.filter((a) => a.quien === q).map((a) => [a.momento, a]));
   const cons = byWho('consultante');
   const ment = byWho('mentor');
@@ -301,6 +301,95 @@ function ingresoAnswers() {
   return { form: f, data };
 }
 
+function kitEstado(k) {
+  if (k.estado === 'entregado') return `Entregado ${fmtIsoLocal(k.entregado_at)}`;
+  if (k.estado === 'en_curso') return `En curso · ${k.dias_guardados} ${k.dias_guardados === 1 ? 'día guardado' : 'días guardados'}`;
+  return 'Sin empezar';
+}
+
+function renderActDrafts() {
+  const drafts = (rec.identity_act_drafts || []).filter((d) => d.estado === 'pendiente');
+  if (!drafts.length) return null;
+  return h('div', { style: 'margin-bottom:24px' },
+    h('p', { class: 'small muted', style: 'margin:0 0 8px' }, 'Por confirmar: acción real propuesta desde el kit'),
+    ...drafts.map((d) => h('div', { style: 'background:var(--ochre-soft);border-radius:var(--r-field);padding:14px 16px;margin-bottom:8px' },
+      h('dl', { class: 'data' },
+        h('dt', {}, 'Con quién'), h('dd', { class: 'voice', style: 'font-size:16px' }, d.con_quien || '—'),
+        h('dt', {}, 'Qué dijo'), h('dd', { class: 'voice', style: 'font-size:16px' }, d.que_dije || '—'),
+        h('dt', {}, 'En el cuerpo'), h('dd', { class: 'voice', style: 'font-size:16px' }, d.cuerpo || '—')),
+      h('div', { class: 'row', style: 'margin-top:10px;gap:6px' },
+        h('button', { class: 'btn', type: 'button', onclick: () => confirmDraft(d) }, 'Confirmar como acto de identidad'),
+        h('button', { class: 'btn quiet', type: 'button', onclick: () => discardDraft(d) }, 'Descartar')))));
+}
+
+function confirmDraft(d) {
+  const desc = [d.con_quien && `Con ${d.con_quien}`, d.que_dije && `Dijo: ${d.que_dije}`, d.cuerpo && `En el cuerpo: ${d.cuerpo}`].filter(Boolean).join('. ');
+  openDialog('Confirmar acto de identidad', [
+    h('div', { class: 'field' }, h('span', { class: 'label' }, 'Tipo'), choiceGroup('tipo', Object.entries(TIPOS_ACTO), 'conversacion')),
+    field('Descripción', textarea('descripcion', desc, 'voice-input')),
+  ], {
+    submitLabel: 'Confirmar',
+    onSubmit: (v) => api(`/act-drafts/${enc(d.id)}`, { method: 'POST', body: { estado: 'confirmado', tipo: v.tipo, descripcion: v.descripcion } }),
+  });
+}
+
+async function discardDraft(d) {
+  if (!confirm('¿Descartar esta acción como acto de identidad? Queda guardada en el kit.')) return;
+  try {
+    await api(`/act-drafts/${enc(d.id)}`, { method: 'POST', body: { estado: 'descartado' } });
+    await load();
+  } catch (e) { toast(e.message); }
+}
+
+async function setProposal(pid, estado) {
+  try {
+    await api(`/witness-proposals/${enc(pid)}`, { method: 'PATCH', body: { estado } });
+    await load();
+  } catch (e) { toast(e.message); }
+}
+
+let kitCatalog = null;
+async function newKitLink() {
+  try {
+    if (!kitCatalog) kitCatalog = await api('/kits');
+  } catch (e) { toast(e.message); return; }
+  const kits = kitCatalog.kits;
+  if (!kits.length) { toast('No hay kits definidos.'); return; }
+  const varsBox = h('div', {});
+  const renderVars = (key) => {
+    const k = kits.find((x) => x.key === key) || kits[0];
+    varsBox.replaceChildren(...Object.entries(k.vars || {}).map(([name, spec]) => field(spec.label,
+      spec.type === 'textarea' ? textarea(`var_${name}`, spec.default, 'voice-input') : input(`var_${name}`, 'text', spec.default))));
+  };
+  const kitSel = select('kit_key', kits.map((k) => [k.key, k.nombre]), kits[0].key);
+  kitSel.addEventListener('change', () => renderVars(kitSel.value));
+  renderVars(kits[0].key);
+  openDialog('Generar link del kit', [
+    field('Kit', kitSel),
+    h('div', { class: 'fields-2' },
+      field('Fecha y hora límite (en su hora local)', input('deadline', 'datetime-local', '')),
+      field('Zona horaria de la consultante', select('tz', [['', 'Sin especificar'], ...Object.entries(kitCatalog.zonas).map(([z, l]) => [z, l.replace(/^hora /, '')])], 'Asia/Shanghai'))),
+    h('details', { open: true }, h('summary', { class: 'small', style: 'cursor:pointer;color:var(--pine);margin-bottom:12px' }, 'Textos personalizables para esta consultante'), varsBox),
+  ], {
+    submitLabel: 'Generar y copiar link',
+    onSubmit: async (v) => {
+      const vars = {};
+      for (const [k, val] of Object.entries(v)) if (k.startsWith('var_')) vars[k.slice(4)] = val;
+      const r = await api(`/consultants/${enc(id)}/kits`, { method: 'POST', body: { kit_key: v.kit_key, deadline: v.deadline || null, tz: v.tz || null, vars } });
+      copy(r.link);
+    },
+  });
+}
+
+async function revokeKit(kid) {
+  if (!confirm('¿Anular este link? Dejará de funcionar.')) return;
+  try {
+    await api(`/kits/${enc(kid)}`, { method: 'DELETE' });
+    toast('Link anulado.');
+    await load();
+  } catch (e) { toast(e.message); }
+}
+
 function renderTimeline() {
   const ev = [];
   for (const s of rec.sessions) {
@@ -325,10 +414,20 @@ function renderTimeline() {
   for (const k of rec.checkins) {
     ev.push({ fecha: k.fecha, kind: 'checkin', title: `Check-in semana ${k.semana ?? ''}`, body: k.texto });
   }
+  for (const k of rec.kits || []) {
+    const fecha = (k.entregado_at || k.ultimo_guardado || k.created_at).slice(0, 10);
+    ev.push({ fecha, kind: 'form',
+      title: h('a', { href: `/panel/kit?id=${enc(k.id)}` }, `Kit · ${k.nombre}`),
+      meta: h('span', { class: `pill${k.estado === 'entregado' ? '' : ' line'}`, style: 'margin-left:10px' }, kitEstado(k)) });
+    for (const at of k.cuidados || []) {
+      ev.push({ fecha: at.slice(0, 10), kind: 'alert', title: `Pidió hablar desde el kit · ${k.nombre}` });
+    }
+  }
   ev.sort((a, b) => b.fecha.localeCompare(a.fecha));
 
   return h('section', { class: 'section card' },
     sectionHead('Línea de tiempo', h('button', { class: 'btn', type: 'button', onclick: addActo }, icon('plus'), 'Acto de identidad')),
+    renderActDrafts(),
     ev.length
       ? h('ul', { class: 'timeline' }, ...ev.map((e) => h('li', {},
         h('span', { class: `mk ${e.kind}`, 'aria-hidden': 'true' }),
@@ -396,16 +495,33 @@ function renderForms(c) {
     h('h3', { style: 'margin-bottom:8px' }, 'Formularios'),
     items.length ? h('ul', { style: 'list-style:none;margin:0;padding:0' }, ...items) : h('p', { class: 'small muted' }, 'Sin formularios.'),
     !hasIngreso ? h('button', { class: 'btn', type: 'button', style: 'margin-top:12px', onclick: () => newFormLink('ingreso') }, icon('plus'), 'Generar link de ingreso') : null,
-    h('p', { class: 'small muted', style: 'margin:12px 0 0' }, 'Diagnóstico por fase, bitácora y cierre llegan en la Etapa 2.'));
+    h('h3', { style: 'margin:24px 0 8px' }, 'Kits de fase'),
+    (rec.kits || []).length
+      ? h('ul', { style: 'list-style:none;margin:0;padding:0' }, ...rec.kits.map((k) => h('li', { style: 'padding:10px 0;border-bottom:1px solid var(--line)' },
+        h('div', { class: 'spread' }, h('a', { href: `/panel/kit?id=${enc(k.id)}` }, k.nombre), h('span', { class: 'small muted' }, kitEstado(k))),
+        k.link ? h('div', { class: 'row', style: 'margin-top:6px;gap:4px' },
+          h('button', { class: 'btn quiet', type: 'button', onclick: () => copy(k.link) }, icon('copy'), 'Copiar'),
+          h('a', { class: 'btn quiet', href: waLink(c.whatsapp, `Hola ${c.nombre.split(/\s+/)[0]}. Te comparto el trabajo entre sesiones: ${k.link}`), target: '_blank', rel: 'noopener' }, icon('message'), 'WhatsApp'),
+          k.estado === 'sin_empezar' ? h('button', { class: 'btn quiet danger', type: 'button', onclick: () => revokeKit(k.id) }, 'Anular') : null) : null)))
+      : h('p', { class: 'small muted', style: 'margin:0' }, 'Todavía no hay kits.'),
+    h('button', { class: 'btn', type: 'button', style: 'margin-top:12px', onclick: newKitLink }, icon('plus'), 'Generar link del kit'));
 }
 
 function renderTestigo() {
   const w = rec.witness.filter((x) => x.respondido_at || x.presencia != null);
   const ing = ingresoAnswers();
   const posible = ing?.data?.campos?.p23;
+  const props = (rec.witness_proposals || []).filter((x) => x.estado !== 'descartado');
   return h('section', { class: 'card' },
     h('h3', { style: 'margin-bottom:12px' }, 'Testigo'),
     posible ? h('p', { class: 'voice', style: 'font-size:16px;margin:0 0 12px' }, posible) : null,
+    ...props.map((x) => h('div', { style: 'border-top:1px solid var(--line);padding-top:10px;margin-bottom:12px' },
+      h('div', { class: 'spread' }, h('span', { class: 'voice', style: 'font-size:17px' }, x.nombre || 'Sin nombre'),
+        h('span', { class: x.estado === 'confirmado' ? 'pill' : 'pill line' }, x.estado === 'confirmado' ? 'Confirmado' : 'Propuesto, pendiente de confirmar')),
+      x.motivo ? h('p', { class: 'voice', style: 'font-size:15.5px;margin:6px 0 0;color:var(--soft)' }, x.motivo) : null,
+      x.estado === 'pendiente' ? h('div', { class: 'row', style: 'margin-top:6px;gap:4px' },
+        h('button', { class: 'btn quiet', type: 'button', onclick: () => setProposal(x.id, 'confirmado') }, 'Confirmar'),
+        h('button', { class: 'btn quiet', type: 'button', onclick: () => setProposal(x.id, 'descartado') }, 'Descartar')) : null)),
     w.length
       ? h('table', { class: 't' }, h('tbody', {}, ...w.map((x) => h('tr', {},
         h('td', {}, MOMENTOS.find((m) => m.key === x.momento)?.label || x.momento),

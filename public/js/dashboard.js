@@ -76,13 +76,19 @@ function render(d) {
           h('td', {}, h('a', { href: `/panel/consultante?id=${encodeURIComponent(c.id)}` }, c.nombre)))))))
       : h('p', { class: 'empty' }, 'No hay sesiones agendadas. Carga la próxima fecha desde cada ficha.')));
 
+  const pendingRows = [
+    ...d.pending_forms.map((f) => ({ consultant_id: f.consultant_id, nombre: f.nombre,
+      detalle: `${TIPOS_FORM[f.tipo] || f.tipo} · enviado ${fmtIsoLocal(f.enviado_at)}`, link: f.link })),
+    ...(d.pending_kits || []).map((k) => ({ consultant_id: k.consultant_id, nombre: k.nombre,
+      detalle: `Kit ${k.kit} · ${k.estado === 'en_curso' ? 'en curso' : 'sin empezar'}`, link: k.link })),
+  ];
   grid.append(h('div', { class: 'span-6' },
     h('div', { class: 'section-head' }, h('h2', {}, 'Formularios pendientes')),
-    d.pending_forms.length
+    pendingRows.length
       ? h('div', { class: 'card' }, h('table', { class: 't' }, h('tbody', {},
-        ...d.pending_forms.map((f) => h('tr', {},
+        ...pendingRows.map((f) => h('tr', {},
           h('td', {}, h('a', { href: `/panel/consultante?id=${encodeURIComponent(f.consultant_id)}` }, f.nombre),
-            h('div', { class: 'small muted' }, `${TIPOS_FORM[f.tipo] || f.tipo} · enviado ${fmtIsoLocal(f.enviado_at)}`)),
+            h('div', { class: 'small muted' }, f.detalle)),
           h('td', { style: 'text-align:right' },
             h('button', { class: 'btn quiet', type: 'button', onclick: () => copy(f.link), 'aria-label': `Copiar link de ${f.nombre}` }, icon('copy'), 'Copiar link')))))))
       : h('p', { class: 'empty' }, 'No hay formularios esperando respuesta.')));

@@ -39,14 +39,20 @@ export const ARCON_DIMS = [
   { key: 'narrativa', letra: 'N', label: 'Narrativa', pregunta: '¿Mi historia me pasa o yo elijo cómo sigue?', ends: ['Me pasa', 'La elijo'] },
 ];
 
-// Los 8 momentos del eje X del gráfico ARCON, más los 3 de sostén.
+// Los 8 momentos del eje X del gráfico ARCON. Los de kit y sostén aparecen solo si tienen datos.
 export const MOMENTOS = [
   { key: 'sesion0', label: 'Sesión 0', short: 'S0' },
+  { key: 'kit_f1', label: 'Fase 1 · kit', short: 'K1', kit: true },
   { key: 'fin_f1', label: 'Fin fase 1', short: 'F1' },
+  { key: 'kit_f2', label: 'Fase 2 · kit', short: 'K2', kit: true },
   { key: 'fin_f2', label: 'Fin fase 2', short: 'F2' },
+  { key: 'kit_f3', label: 'Fase 3 · kit', short: 'K3', kit: true },
   { key: 'fin_f3', label: 'Fin fase 3', short: 'F3' },
+  { key: 'kit_f4', label: 'Fase 4 · kit', short: 'K4', kit: true },
   { key: 'fin_f4', label: 'Fin fase 4', short: 'F4' },
+  { key: 'kit_f5', label: 'Fase 5 · kit', short: 'K5', kit: true },
   { key: 'fin_f5', label: 'Fin fase 5', short: 'F5' },
+  { key: 'kit_f6', label: 'Fase 6 · kit', short: 'K6', kit: true },
   { key: 'fin_f6', label: 'Fin fase 6', short: 'F6' },
   { key: 'final', label: 'Final', short: 'Fin' },
   { key: 'sosten30', label: 'Sostén 30 días', short: '+30', sosten: true },

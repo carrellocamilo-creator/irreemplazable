@@ -1,0 +1,761 @@
+{
+ "key": "fase1_las_dos_vidas",
+ "version": 1,
+ "fase": 1,
+ "nombre_panel": "Fase 1 · Las dos vidas",
+ "title": "Las dos vidas",
+ "subtitle": "Trabajo entre sesiones · Fase 1: Ver el personaje",
+ "firma": "— Camilo",
+ "vars": {
+  "intro": {
+   "label": "Introducción",
+   "type": "textarea",
+   "default": "En la sesión apareció una imagen que vamos a usar como hilo: vivir dos vidas. Esta semana no la vamos a juzgar ni resolver. Y como estás atravesando una ruptura, el trabajo baja de intensidad: primero cuidarte, después mirar. La idea es ver con calma cómo funciona esa forma de vivir, qué te protege y qué te cobra.\nSon tres días, 15 a 20 minutos por día. No es una tarea de colegio: no se corrige, no se califica."
+  },
+  "columna_a": {
+   "label": "Día 1 · título de la primera columna",
+   "type": "text",
+   "default": "La Claudia de Barcelona / China"
+  },
+  "columna_b": {
+   "label": "Día 1 · título de la segunda columna",
+   "type": "text",
+   "default": "La Claudia de Ecuador / con mi familia"
+  },
+  "parte_b": {
+   "label": "Día 1 · consigna de la Parte B",
+   "type": "textarea",
+   "default": "Imagina que las dos Claudias se sientan en la misma mesa. Escribe el diálogo, entre 5 y 10 líneas, sin pensarlo mucho. ¿Qué le reprocha una a la otra? ¿Qué le pide?"
+  },
+  "decision_1": {
+   "label": "Día 3 · primera decisión abierta",
+   "type": "text",
+   "default": "1. Dónde quiero vivir el próximo año"
+  },
+  "decision_2": {
+   "label": "Día 3 · segunda decisión abierta",
+   "type": "text",
+   "default": "2. Qué quiero hacer con mi trabajo (Suiza, la panadería, otra cosa)"
+  },
+  "timeline_hint": {
+   "label": "Día 3 · ejemplos de la línea de tiempo",
+   "type": "text",
+   "default": "Cuándo termina China, cuándo responder por Suiza, cuándo arranca la panadería, etc."
+  },
+  "frase_ruptura": {
+   "label": "Día 3 · frase sobre la ruptura",
+   "type": "textarea",
+   "default": "Sobre la ruptura, no tienes que saber hoy si fue la decisión correcta. Escribe una sola frase: lo que sé hoy es…"
+  },
+  "entrega_texto": {
+   "label": "Entrega · texto si no hay fecha límite",
+   "type": "text",
+   "default": "El sábado antes de las 20:00 hora China"
+  }
+ },
+ "measurements": {
+  "arcon_momento": "kit_f1",
+  "arcon": {
+   "autenticidad": "m_a",
+   "resonancia": "m_r",
+   "coherencia": "m_c",
+   "observacion": "m_o",
+   "narrativa": "m_n"
+  },
+  "indicators": {
+   "sueno": "m_sueno",
+   "energia": "m_energia",
+   "intensidad_sintoma": "m_estres",
+   "vida_propia": "m_propia"
+  }
+ },
+ "witness": {
+  "nombre": "t_nombre",
+  "motivo": "t_motivo"
+ },
+ "act": {
+  "con_quien": "a_quien",
+  "que_dije": "a_dije",
+  "cuerpo": "a_cuerpo"
+ },
+ "care": {
+  "label": "Hoy me está costando mucho / necesito hablar",
+  "section": "pesado"
+ },
+ "sections": [
+  {
+   "key": "reglas",
+   "title": "Reglas del juego",
+   "blocks": [
+    {
+     "type": "list",
+     "items": [
+      "Escribe lo que te resulte más rápido.",
+      "Pon un temporizador. Cuando suena, paras.",
+      "La primera respuesta es la que vale. Si te das vueltas y quieres corregir, no borres: edita y se guardan las dos versiones. La diferencia entre las dos también es material de trabajo.",
+      "Si algo te mueve mucho: para, respira seis veces soltando el aire más lento de lo que lo tomas, y vuelve más tarde o al día siguiente. No hace falta terminar todo de una.",
+      "Si aparece enojo, vergüenza o algo “que no se dice”, no lo filtres. Eso es exactamente lo que buscamos."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "pesado",
+   "title": "Si hoy es un día pesado",
+   "blocks": [
+    {
+     "type": "p",
+     "text": "No hace falta hacer nada de lo que sigue. Ese día alcanza con el registro corto antes de dormir."
+    },
+    {
+     "type": "p",
+     "text": "Si necesitas sacarlo, escribe 10 minutos sin parar sobre cómo estás. Ese texto es solo para ti: no se envía y no se relee esa noche."
+    },
+    {
+     "type": "local",
+     "key": "descarga",
+     "label": "Solo para ti. Queda en este dispositivo y no se envía."
+    },
+    {
+     "type": "p",
+     "text": "No estás sola con esto. Apóyate en alguien cercano, y si en algún momento se te hace demasiado, me avisas."
+    }
+   ]
+  },
+  {
+   "key": "registro",
+   "title": "Registro corto",
+   "save": true,
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Jueves"
+    },
+    {
+     "type": "yesno",
+     "key": "rc_jue_senal",
+     "label": "¿Te rascaste el brazo hoy (u otra señal de estrés)?",
+     "reveal": [
+      {
+       "type": "text",
+       "key": "rc_jue_cuando",
+       "label": "¿Cuándo?"
+      },
+      {
+       "type": "textarea",
+       "key": "rc_jue_antes",
+       "label": "¿Qué estaba pasando justo antes?",
+       "rows": 2
+      },
+      {
+       "type": "textarea",
+       "key": "rc_jue_pensando",
+       "label": "¿Qué estabas pensando?",
+       "rows": 2
+      },
+      {
+       "type": "scale",
+       "key": "rc_jue_intensidad",
+       "label": "Intensidad",
+       "max": 10,
+       "ends": [
+        "Leve",
+        "Muy intensa"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "textarea",
+     "key": "rc_jue_yo",
+     "label": "Una cosa que hoy dije siendo yo.",
+     "rows": 2
+    },
+    {
+     "type": "textarea",
+     "key": "rc_jue_calle",
+     "label": "Una cosa que hoy callé o suavicé.",
+     "rows": 2
+    },
+    {
+     "type": "text",
+     "key": "rc_jue_calle_quien",
+     "label": "¿Con quién?"
+    },
+    {
+     "type": "heading",
+     "text": "Viernes"
+    },
+    {
+     "type": "yesno",
+     "key": "rc_vie_senal",
+     "label": "¿Te rascaste el brazo hoy (u otra señal de estrés)?",
+     "reveal": [
+      {
+       "type": "text",
+       "key": "rc_vie_cuando",
+       "label": "¿Cuándo?"
+      },
+      {
+       "type": "textarea",
+       "key": "rc_vie_antes",
+       "label": "¿Qué estaba pasando justo antes?",
+       "rows": 2
+      },
+      {
+       "type": "textarea",
+       "key": "rc_vie_pensando",
+       "label": "¿Qué estabas pensando?",
+       "rows": 2
+      },
+      {
+       "type": "scale",
+       "key": "rc_vie_intensidad",
+       "label": "Intensidad",
+       "max": 10,
+       "ends": [
+        "Leve",
+        "Muy intensa"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "textarea",
+     "key": "rc_vie_yo",
+     "label": "Una cosa que hoy dije siendo yo.",
+     "rows": 2
+    },
+    {
+     "type": "textarea",
+     "key": "rc_vie_calle",
+     "label": "Una cosa que hoy callé o suavicé.",
+     "rows": 2
+    },
+    {
+     "type": "text",
+     "key": "rc_vie_calle_quien",
+     "label": "¿Con quién?"
+    },
+    {
+     "type": "heading",
+     "text": "Sábado"
+    },
+    {
+     "type": "yesno",
+     "key": "rc_sab_senal",
+     "label": "¿Te rascaste el brazo hoy (u otra señal de estrés)?",
+     "reveal": [
+      {
+       "type": "text",
+       "key": "rc_sab_cuando",
+       "label": "¿Cuándo?"
+      },
+      {
+       "type": "textarea",
+       "key": "rc_sab_antes",
+       "label": "¿Qué estaba pasando justo antes?",
+       "rows": 2
+      },
+      {
+       "type": "textarea",
+       "key": "rc_sab_pensando",
+       "label": "¿Qué estabas pensando?",
+       "rows": 2
+      },
+      {
+       "type": "scale",
+       "key": "rc_sab_intensidad",
+       "label": "Intensidad",
+       "max": 10,
+       "ends": [
+        "Leve",
+        "Muy intensa"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "textarea",
+     "key": "rc_sab_yo",
+     "label": "Una cosa que hoy dije siendo yo.",
+     "rows": 2
+    },
+    {
+     "type": "textarea",
+     "key": "rc_sab_calle",
+     "label": "Una cosa que hoy callé o suavicé.",
+     "rows": 2
+    },
+    {
+     "type": "text",
+     "key": "rc_sab_calle_quien",
+     "label": "¿Con quién?"
+    }
+   ]
+  },
+  {
+   "key": "dia1",
+   "title": "Día 1 · Jueves",
+   "subtitle": "El mapa de las dos vidas",
+   "meta": "20 min",
+   "save": true,
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Parte A"
+    },
+    {
+     "type": "columns",
+     "key": "d1a",
+     "cols": [
+      {
+       "key": "a",
+       "title": "{{columna_a}}"
+      },
+      {
+       "key": "b",
+       "title": "{{columna_b}}"
+      }
+     ],
+     "rows": [
+      {
+       "key": "cuenta",
+       "label": "Qué cuenta de su vida"
+      },
+      {
+       "key": "calla",
+       "label": "Qué calla"
+      },
+      {
+       "key": "habla",
+       "label": "Cómo habla, cómo se viste, cómo se mueve"
+      },
+      {
+       "key": "cuerpo",
+       "label": "Qué siente en el cuerpo cuando está ahí"
+      },
+      {
+       "key": "gana",
+       "label": "Qué gana manteniendo esa versión"
+      },
+      {
+       "key": "cuesta",
+       "label": "Qué le cuesta"
+      }
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Parte B"
+    },
+    {
+     "type": "p",
+     "text": "{{parte_b}}"
+    },
+    {
+     "type": "textarea",
+     "key": "d1b_dialogo",
+     "label": "Diálogo",
+     "rows": 8
+    },
+    {
+     "type": "heading",
+     "text": "Parte C"
+    },
+    {
+     "type": "p",
+     "text": "Ponle nombre a la estrategia. No a ti: a la forma de funcionar que mantiene las dos vidas separadas. Por ejemplo, algo del estilo “la que no incomoda” o “la que fluye para no elegir”. Usa tu propio nombre para ella."
+    },
+    {
+     "type": "text",
+     "key": "d1c_nombre",
+     "label": "Nombre de la estrategia"
+    },
+    {
+     "type": "textarea",
+     "key": "d1c_aparecio",
+     "label": "Esta forma de funcionar apareció cuando…",
+     "rows": 2
+    },
+    {
+     "type": "textarea",
+     "key": "d1c_sirvio",
+     "label": "Me sirvió para…",
+     "rows": 2
+    },
+    {
+     "type": "textarea",
+     "key": "d1c_protegio",
+     "label": "Me protegió de…",
+     "rows": 2
+    },
+    {
+     "type": "textarea",
+     "key": "d1c_cobra",
+     "label": "Hoy me cobra…",
+     "rows": 2
+    }
+   ]
+  },
+  {
+   "key": "dia2",
+   "title": "Día 2 · Viernes",
+   "subtitle": "Frases incompletas",
+   "meta": "15 min",
+   "save": true,
+   "blocks": [
+    {
+     "type": "p",
+     "text": "Completa cada frase seis veces seguidas, lo más rápido que puedas. No pienses la siguiente: escríbela. Repetirte está permitido."
+    },
+    {
+     "type": "lines",
+     "key": "d2_f1",
+     "label": "1. Si dejara de dividir mi vida en dos…",
+     "count": 6
+    },
+    {
+     "type": "lines",
+     "key": "d2_f2",
+     "label": "2. Lo que de verdad quiero de papá es…",
+     "count": 6
+    },
+    {
+     "type": "p",
+     "text": "La frase 2 puede tocar algo fuerte. Si la primera respuesta es corta o evasiva, escríbela igual y sigue: la sexta casi nunca es igual a la primera.",
+     "style": "note"
+    },
+    {
+     "type": "lines",
+     "key": "d2_f3",
+     "label": "3. Lo que de verdad quiero de mamá es…",
+     "count": 6
+    },
+    {
+     "type": "lines",
+     "key": "d2_f4",
+     "label": "4. Cuando me elijo a mí, siento que…",
+     "count": 6
+    },
+    {
+     "type": "lines",
+     "key": "d2_f5",
+     "label": "5. “No está bien, pero funciona” lo aprendí de…",
+     "count": 6
+    },
+    {
+     "type": "lines",
+     "key": "d2_f6",
+     "label": "6. Lo que hoy me duele es…",
+     "count": 6
+    },
+    {
+     "type": "lines",
+     "key": "d2_f7",
+     "label": "7. Lo que esta decisión dice de mí es…",
+     "count": 6
+    },
+    {
+     "type": "pick",
+     "key": "d2_sorpresas",
+     "label": "Al final: marca las tres respuestas que más te sorprendieron.",
+     "max": 3,
+     "from": "d2_f"
+    }
+   ]
+  },
+  {
+   "key": "dia3",
+   "title": "Día 3 · Sábado",
+   "subtitle": "Sacar las decisiones de la cabeza",
+   "meta": "20 min",
+   "save": true,
+   "blocks": [
+    {
+     "type": "p",
+     "text": "Hoy no vas a decidir nada. Vas a ordenar."
+    },
+    {
+     "type": "p",
+     "text": "Toma las dos decisiones que siguen abiertas:"
+    },
+    {
+     "type": "heading",
+     "text": "{{decision_1}}"
+    },
+    {
+     "type": "textarea",
+     "key": "d3_dec1_hechos",
+     "label": "Hechos",
+     "hint": "Lo que es cierto y verificable hoy.",
+     "rows": 3
+    },
+    {
+     "type": "textarea",
+     "key": "d3_dec1_supuestos",
+     "label": "Supuestos",
+     "hint": "Lo que imagino que va a pasar o que el otro va a pensar.",
+     "rows": 3
+    },
+    {
+     "type": "textarea",
+     "key": "d3_dec1_miedos",
+     "label": "Miedos",
+     "hint": "Dicho sin suavizar.",
+     "rows": 3
+    },
+    {
+     "type": "text",
+     "key": "d3_dec1_quiero",
+     "label": "Lo que quiero si nadie se enojara ni se decepcionara",
+     "hint": "Una frase."
+    },
+    {
+     "type": "heading",
+     "text": "{{decision_2}}"
+    },
+    {
+     "type": "textarea",
+     "key": "d3_dec2_hechos",
+     "label": "Hechos",
+     "hint": "Lo que es cierto y verificable hoy.",
+     "rows": 3
+    },
+    {
+     "type": "textarea",
+     "key": "d3_dec2_supuestos",
+     "label": "Supuestos",
+     "hint": "Lo que imagino que va a pasar o que el otro va a pensar.",
+     "rows": 3
+    },
+    {
+     "type": "textarea",
+     "key": "d3_dec2_miedos",
+     "label": "Miedos",
+     "hint": "Dicho sin suavizar.",
+     "rows": 3
+    },
+    {
+     "type": "text",
+     "key": "d3_dec2_quiero",
+     "label": "Lo que quiero si nadie se enojara ni se decepcionara",
+     "hint": "Una frase."
+    },
+    {
+     "type": "heading",
+     "text": "Línea de tiempo"
+    },
+    {
+     "type": "rows",
+     "key": "d3_timeline",
+     "hint": "{{timeline_hint}}",
+     "columns": [
+      {
+       "key": "fecha",
+       "label": "Fecha",
+       "width": "narrow"
+      },
+      {
+       "key": "que",
+       "label": "Qué pasa"
+      }
+     ],
+     "add_label": "Agregar fila",
+     "min_rows": 3
+    },
+    {
+     "type": "text",
+     "key": "d3_primera_fecha",
+     "label": "La primera fecha en la que de verdad tengo que decidir algo."
+    },
+    {
+     "type": "textarea",
+     "key": "d3_peor",
+     "label": "Si me equivoco en alguna de estas decisiones, ¿qué es lo peor que puede pasar de verdad, y cómo me recuperaría?",
+     "rows": 4
+    },
+    {
+     "type": "text",
+     "key": "d3_ruptura",
+     "label": "{{frase_ruptura}}"
+    }
+   ]
+  },
+  {
+   "key": "accion",
+   "title": "Una acción real",
+   "meta": "Cualquier día",
+   "save": true,
+   "blocks": [
+    {
+     "type": "p",
+     "text": "Elige una conversación cotidiana en la que normalmente responderías “bien” o cambiarías de tema, y di una frase verdadera. Una sola. No tiene que ser con tu familia ni sobre el tema grande. Esta semana también vale pedir apoyo: decirle a alguien cercano cómo estás de verdad, sin el “estoy bien”."
+    },
+    {
+     "type": "text",
+     "key": "a_quien",
+     "label": "Con quién"
+    },
+    {
+     "type": "textarea",
+     "key": "a_dije",
+     "label": "Qué dije",
+     "rows": 2
+    },
+    {
+     "type": "textarea",
+     "key": "a_cuerpo",
+     "label": "Qué pasó en mi cuerpo antes, durante y después",
+     "rows": 3
+    }
+   ]
+  },
+  {
+   "key": "medicion",
+   "title": "Cierre del sábado · Tu medición",
+   "save": true,
+   "intro": "Puntúa del 1 al 5.",
+   "blocks": [
+    {
+     "type": "scale",
+     "key": "m_a",
+     "label": "¿Actúo desde mí o desde un personaje?",
+     "max": 5,
+     "ends": [
+      "Vivo en automático",
+      "Decido desde lo que soy"
+     ]
+    },
+    {
+     "type": "scale",
+     "key": "m_r",
+     "label": "¿Siento en el cuerpo lo que vivo?",
+     "max": 5,
+     "ends": [
+      "Anestesia",
+      "Registro y nombro lo que siento"
+     ]
+    },
+    {
+     "type": "scale",
+     "key": "m_c",
+     "label": "¿Pienso, siento y hago en la misma dirección?",
+     "max": 5,
+     "ends": [
+      "Digo, siento y hago cosas distintas",
+      "Mis actos reflejan lo que pienso y siento"
+     ]
+    },
+    {
+     "type": "scale",
+     "key": "m_o",
+     "label": "¿Puedo verme sin juzgarme mientras me pasa?",
+     "max": 5,
+     "ends": [
+      "Me juzgo o me justifico",
+      "Me observo con claridad"
+     ]
+    },
+    {
+     "type": "scale",
+     "key": "m_n",
+     "label": "¿Cuento mi historia como algo que me pasa o como algo que elijo?",
+     "max": 5,
+     "ends": [
+      "La historia me pasa",
+      "Elijo cómo sigue"
+     ]
+    },
+    {
+     "type": "p",
+     "text": "Del 1 al 10."
+    },
+    {
+     "type": "scale",
+     "key": "m_sueno",
+     "label": "Sueño",
+     "max": 10,
+     "ends": [
+      "Muy malo",
+      "Excelente"
+     ]
+    },
+    {
+     "type": "scale",
+     "key": "m_energia",
+     "label": "Energía",
+     "max": 10,
+     "ends": [
+      "Agotada",
+      "Plena"
+     ]
+    },
+    {
+     "type": "scale",
+     "key": "m_estres",
+     "label": "Intensidad del rascado / estrés",
+     "max": 10,
+     "ends": [
+      "Leve",
+      "Muy intensa"
+     ]
+    },
+    {
+     "type": "scale",
+     "key": "m_propia",
+     "label": "Sensación de estar viviendo una vida propia",
+     "max": 10,
+     "ends": [
+      "Prestada",
+      "Totalmente mía"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "testigo",
+   "title": "Una persona testigo",
+   "save": true,
+   "blocks": [
+    {
+     "type": "p",
+     "text": "Propón a una persona cercana que pueda responder cinco preguntas cortas sobre cómo te ve, al inicio, a mitad y al final del proceso. Nunca recibe nada de lo que hablamos en las sesiones. Que sea alguien que te vea seguido, de quien no dependas (no tu jefe) y con quien no tengas una decisión abierta en este momento."
+    },
+    {
+     "type": "text",
+     "key": "t_nombre",
+     "label": "Nombre"
+    },
+    {
+     "type": "textarea",
+     "key": "t_motivo",
+     "label": "Por qué la elegiste",
+     "rows": 2
+    }
+   ]
+  },
+  {
+   "key": "entrega",
+   "title": "Entrega",
+   "final": true,
+   "blocks": [
+    {
+     "type": "deadline"
+    },
+    {
+     "type": "p",
+     "text": "Esta semana no tienes que decidir nada más. Solo mirar y cuidarte. El domingo trabajamos con lo que aparezca."
+    },
+    {
+     "type": "signature"
+    }
+   ]
+  }
+ ],
+ "cierre": {
+  "title": "Entregado.",
+  "second": "Gracias por hacerte el tiempo.",
+  "lead": "Lo voy a leer antes de nuestra próxima sesión. No hace falta que hagas nada más."
+ }
+}

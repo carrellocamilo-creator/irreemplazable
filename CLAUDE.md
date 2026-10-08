@@ -25,7 +25,7 @@ Leelo antes de diseñar cualquier pantalla o tabla. La app traduce el método a 
 ## Privacidad y seguridad (no negociable)
 
 - Son datos sensibles de salud emocional (Ley 25.326, Argentina). Todo el panel detrás de Cloudflare Access.
-- Los formularios públicos que completan consultantes se acceden por link con token único por consultante y por formulario. Un token no permite leer datos, solo enviar.
+- Los formularios públicos que completan consultantes se acceden por link con token único por consultante y por formulario. Un token no permite leer datos, solo enviar. Excepción: el token de un kit de fase lee y edita solo las respuestas de ese kit (para poder completarlo en varios días) y deja de devolverlas cuando el kit se entrega.
 - Antes de enviar cualquier dato a la IA: anonimizar. Quitar nombre, email, teléfono, ciudad, nombres de terceros mencionados (testigo, familiares, empresa). Reemplazar por "la consultante", "[persona 1]", etc. Mostrar al mentor el texto anonimizado antes de enviarlo.
 - Las alertas de cuidado (respuesta "Sí" en crisis o pensamientos de hacerse daño) se marcan en rojo en el panel y en la ficha, y disparan un email al mentor.
 - Función para exportar o eliminar todos los datos de un consultante (derecho de acceso y supresión).
@@ -37,7 +37,7 @@ Leelo antes de diseñar cualquier pantalla o tabla. La app traduce el método a 
 
 **forms**: id, consultant_id, tipo (ingreso / diagnostico_fase_1…6 / bitacora / cierre), token, enviado_at, respondido_at, respuestas_json.
 
-**arcon**: id, consultant_id, momento (sesion0 / fin_f1…f6 / final / sosten30 / sosten60 / sosten90), quien (consultante / mentor), autenticidad, resonancia, coherencia, observacion, narrativa (1–5), fecha.
+**arcon**: id, consultant_id, momento (sesion0 / kit_f1…f6 / fin_f1…f6 / final / sosten30 / sosten60 / sosten90), quien (consultante / mentor), autenticidad, resonancia, coherencia, observacion, narrativa (1–5), fecha.
 
 **indicators**: id, consultant_id, fecha, sueno, energia, intensidad_sintoma, vida_propia (1–10), sintoma_descripcion.
 
@@ -49,7 +49,24 @@ Leelo antes de diseñar cualquier pantalla o tabla. La app traduce el método a 
 
 **checkins**: id, consultant_id, semana, fecha, texto.
 
+**kits**: id, consultant_id, kit_key, fase, token, config_json (textos personalizados, fecha límite, zona horaria), indicator_id, created_at, started_at, cuidado_at, entregado_at.
+
+**kit_answers**: id, kit_id, field_key, primera_respuesta, primera_at, respuesta_final, final_at.
+
+**kit_events**: id, kit_id, tipo (guardado / cuidado / entregado), section_key, at.
+
+**witness_proposals**: id, consultant_id, kit_id, nombre, motivo, estado (pendiente / confirmado / descartado).
+
+**identity_act_drafts**: id, consultant_id, kit_id, fecha, fase, con_quien, que_dije, cuerpo, estado (pendiente / confirmado / descartado), identity_act_id.
+
 **ai_analyses**: id, consultant_id, tipo (preparar_sesion / evolucion / cierre_fase), input_anonimizado, output, fecha.
+
+## Kits de fase
+
+- Definición como datos en `src/kits/*.json` (secciones, bloques, textos, variables personalizables, mapeo de mediciones, testigo y acción). Se registran en `src/kits/index.js`.
+- Renderer único: `public/f/kit.html` + `public/js/kit.js`. Vista del mentor: `public/panel/kit.html`.
+- Tipos de bloque: p, list, heading, text, textarea, yesno (con reveal), scale, lines, columns, pick, rows, local (solo navegador), deadline, signature. Los textos aceptan `{{variable}}`.
+- Cambios de esquema: siempre con una migración nueva en `migrations/`, sin comentarios (la consola de D1 junta todo en una línea).
 
 ## Pantallas
 

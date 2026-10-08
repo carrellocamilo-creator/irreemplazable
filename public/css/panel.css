@@ -187,3 +187,20 @@ details.answers summary{cursor:pointer;color:var(--pine);font-weight:500}
 .qa{margin:16px 0 0}
 .qa dt{font-size:var(--fs-small);color:var(--soft);margin-top:14px}
 .qa dd{margin:4px 0 0;font-family:var(--serif);font-size:17px;line-height:1.55;white-space:pre-wrap;max-width:var(--measure)}
+
+/* Respuestas de kit: primera respuesta y corregida */
+.kit-sec{margin-top:32px}
+.kit-sec h2{margin-bottom:4px}
+.kit-sec .kit-sub{color:var(--soft);font-family:var(--serif);font-size:17px;margin:0 0 16px}
+.kit-sec h3{margin:24px 0 8px}
+.ans{padding:12px 0;border-top:1px solid var(--line)}
+.ans:first-of-type{border-top:0}
+.ans .q-label{font-size:var(--fs-small);color:var(--soft);margin-bottom:4px}
+.ans .a{font-family:var(--serif);font-size:17px;line-height:1.55;white-space:pre-wrap;max-width:var(--measure)}
+.ans .a.empty-a{color:var(--soft);font-style:italic}
+.versions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
+@media (max-width:760px){.versions{grid-template-columns:1fr}}
+.versions .v{border-radius:var(--r-field);padding:10px 12px;background:var(--paper)}
+.versions .v.final{background:var(--lichen)}
+.versions .v-head{font-size:var(--fs-small);color:var(--soft);margin-bottom:4px}
+.diff-tag{font-size:var(--fs-small);color:var(--ochre);margin-left:8px}
